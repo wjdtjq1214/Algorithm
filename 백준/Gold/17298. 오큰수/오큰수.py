@@ -1,33 +1,19 @@
-numObjStack = []
+numStack = []
 
-listLen = int(input())
+numCount = int(input())
+numList = list(map(int, input().split()))
 
-resultList = [str(-1) for _ in range(listLen)]
+result = [str(-1) for _ in range(numCount)]
 
-numList = input().split()
-numObjList = [
-  {
-    "index": i,
-    "num": int(numList[i])
-  } for i in range(listLen)
-]
+for index in range(numCount):
+  num = numList[index]
 
-i = 0
+  while len(numStack) > 0 and numStack[-1]['num'] < num:
+    result[numStack.pop()['index']] = str(num)
 
-while i < listLen:
-  numObj = numObjList[i]
+  numStack.append({
+    'index': index,
+    'num': num
+  })
 
-  if len(numObjStack) == 0:
-    numObjStack.append(numObj)
-    i += 1
-  else:
-    lastStackObj = numObjStack.pop()
-
-    if numObj["num"] > lastStackObj["num"]:
-      resultList[lastStackObj["index"]] = str(numObj["num"])
-    else:
-      numObjStack.append(lastStackObj)
-      numObjStack.append(numObj)
-      i += 1
-
-print(' '.join(resultList))
+print(' '.join(result))
