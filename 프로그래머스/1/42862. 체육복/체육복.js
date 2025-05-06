@@ -12,8 +12,6 @@ function solution(n, lost, reserve) {
             lostArr.push(lostNum)
     }
     
-    
-    
     lostArr.sort((a, b) => a - b)
     
     for (const lostNum of lostArr) {
