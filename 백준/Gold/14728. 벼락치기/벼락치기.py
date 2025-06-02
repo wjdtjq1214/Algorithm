@@ -1,21 +1,19 @@
-length, maxWeight = map(int, input().split())
+import sys
 
-weigthValiuLst = [0 for _ in range(maxWeight + 1)]
-indexObjList = [{} for _ in range(maxWeight + 1)]
-itemList = []
+input = sys.stdin.readline
 
-for _ in range(length):
-  weight, value = map(int, input().split())
-  itemList.append([weight, value])
+n,t = map(int, input().split())
 
-for i in range(1, maxWeight + 1):
-  for j in range(length):
-    item = itemList[j]
+timeList = [0 for _ in range(t + 1)]
 
-    if i - item[0] >= 0 and j not in indexObjList[i - item[0]] and weigthValiuLst[i - item[0]] + item[1] > weigthValiuLst[i]:
-      indexObjList[i] = indexObjList[i - item[0]].copy()
-      indexObjList[i][j] = True
-      weigthValiuLst[i] = weigthValiuLst[i - item[0]] + item[1]
+for _ in range(n):
+  newTimeList = timeList.copy()
+  time, score = map(int, input().split())
 
+  for i in range(t + 1):
+    if i + time <= t:
+      newTimeList[i + time] = max(timeList[i + time], timeList[i] + score)
 
-print(max(weigthValiuLst))
+  timeList = newTimeList
+
+print(max(timeList))
